@@ -1,0 +1,37 @@
+# Android Build
+/app/build/
+/.gradle/
+/build/
+*.apk
+*.aab
+
+# Local configuration files
+local.properties
+
+# Generated files
+*.class
+*.dex
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Gradle Wrapper (keep gradle wrapper properties)
+# gradle/wrapper/gradle-wrapper.properties
+
+# Local environment
+.env
+.env.local
