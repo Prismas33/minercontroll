@@ -2,8 +2,13 @@ package com.minercontrol.app
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,6 +17,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.minercontrol.app.model.SettingsRepository
 import com.minercontrol.app.navigation.MinerControlNavigation
 import com.minercontrol.app.network.UdpListener
@@ -36,6 +44,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
+        // Configure window for maximum screen usage including notch/cutout
+        setupFullScreenWithNotchSupport()
+        
         Log.d("MainActivity", "🚀 Starting MinerControl...")
         
         settingsRepository = SettingsRepository.getInstance(this)
@@ -57,6 +68,34 @@ class MainActivity : ComponentActivity() {
         }
         
         checkPermissionsAndStart()
+    }
+    
+    private fun setupFullScreenWithNotchSupport() {
+        // Make app use full screen including notch/cutout area
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // Android 9+ specific cutout support
+            window.attributes.layoutInDisplayCutoutMode = 
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // Android 11+ improved cutout support
+            window.attributes.layoutInDisplayCutoutMode = 
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_ALWAYS
+        }
+        
+        // Configure system bars to be transparent and allow content behind them
+        val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
+        windowInsetsController.systemBarsBehavior = 
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        
+        // Make status bar and navigation bar dark/transparent
+        window.statusBarColor = android.graphics.Color.TRANSPARENT
+        window.navigationBarColor = android.graphics.Color.TRANSPARENT
+        
+        Log.d("MainActivity", "📱 Configured full screen with notch/cutout support")
     }
     
     private fun checkPermissionsAndStart() {

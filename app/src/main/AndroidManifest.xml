@@ -24,7 +24,16 @@
             android:exported="true"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.MinerControl">
+            android:theme="@style/Theme.MinerControl"
+            android:windowSoftInputMode="adjustResize"
+            android:resizeableActivity="false"
+            android:supportsPictureInPicture="false">
+            
+            <!-- Suporte agressivo para notch/cutout -->
+            <meta-data android:name="android.notch_support" android:value="true"/>
+            <meta-data android:name="android.max_aspect" android:value="3.0" />
+            <meta-data android:name="android.allow_multiple_resumed_activities" android:value="true" />
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

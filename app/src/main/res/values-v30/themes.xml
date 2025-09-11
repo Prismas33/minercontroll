@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+    <!-- API 30+ theme with maximum cutout support -->
     <style name="Base.Theme.MinerControl" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/green_primary</item>
         <item name="colorPrimaryDark">@color/green_dark</item>
@@ -8,14 +8,14 @@
         <item name="android:statusBarColor">@color/black</item>
         <item name="android:navigationBarColor">@color/black</item>
         <item name="android:windowBackground">@color/black</item>
-        <!-- Suporte máximo para notch/cutout -->
-        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="p">shortEdges</item>
+        <!-- Android 11+ suporte máximo para cutout -->
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowFullscreen">false</item>
         <item name="android:fitsSystemWindows">false</item>
+        <!-- Force immersive experience -->
+        <item name="android:windowContentOverlay">@null</item>
     </style>
-
-    <style name="Theme.MinerControl" parent="Base.Theme.MinerControl" />
 </resources>

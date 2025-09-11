@@ -50,10 +50,10 @@ data class Miner(
         }
         
     val powerFormatted: String
-        get() = "${String.format("%.0f", power)} W"
+        get() = if (power > 0) "${String.format("%.0f", power)} W" else "N/A"
         
     val tempFormatted: String
-        get() = "${String.format("%.0f", temp)}°C"
+        get() = if (temp > 0) "${String.format("%.0f", temp)}°C" else "N/A"
         
     val sharesFormatted: String
         get() = when {

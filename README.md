@@ -4,7 +4,7 @@
 
 A modern Android application for monitoring and managing cryptocurrency miners in real-time via UDP protocol. Built with Kotlin and Jetpack Compose for a seamless native Android experience.
 
-![MinerControl Dashboard](logo.png)
+![MinerControl Dashboard](docs/logo.png)
 
 ## ✨ Features
 
@@ -32,6 +32,11 @@ A modern Android application for monitoring and managing cryptocurrency miners i
 - **UDP port configuration** for different setups
 - **Persistent preferences** storage
 
+### 📱 **Optimized for Modern Phones**
+- **Full notch/cutout support** - no black spaces on sides
+- **Responsive layout** that uses all available screen space
+- **Landscape orientation** optimized for mining dashboards
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -53,6 +58,12 @@ A modern Android application for monitoring and managing cryptocurrency miners i
    - Language preference (PT/EN)
    - UDP port (default: 12345)
 4. **Return to dashboard** to see your miners automatically discovered
+
+### 📱 Notch/Cutout Support
+This application is optimized for modern phones with notch or cutout:
+- **Full screen utilization** without black side spaces
+- **Adaptive layout** that adjusts to different screen formats
+- **Native support** for Android 9+ with `shortEdges` configuration
 
 ## 📡 Miner Protocol
 
@@ -165,6 +176,11 @@ cd minercontroll
 - **No miners found**: Check UDP port configuration and network connectivity
 - **Wrong hashrate units**: Verify miner sends hashrate in expected format
 - **Temperature alerts**: Adjust thresholds in miner firmware if needed
+- **Black spaces on screen**: The app already has notch/cutout support enabled automatically
+
+### Known Issues
+- On some older devices, app restart may be needed after orientation change
+- UDP discovery works best on home networks (may have limitations on enterprise networks)
 
 ## 🤝 Contributing
 
@@ -192,13 +208,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **Issues**: [GitHub Issues](../../issues)
 - **Discussions**: [GitHub Discussions](../../discussions)
-- **Email**: [support@minercontrol.app](mailto:support@minercontrol.app)
+- **Email**: [prismas33@example.com](mailto:prismas33@example.com)
 
 ---
 
 <div align="center">
 
 **Made with ❤️ for the mining community**
+
+**© 2025 Prismas33 - Licensed under MIT License**
 
 [⬆ Back to top](#-minercontrol-android)
 

@@ -91,9 +91,25 @@ class UdpListener(private val context: Context? = null) {
                 return
             }
             
-            Log.d("UdpListener", "📦 Processing JSON from $raddr: $trimmed")
+            Log.e("UdpListener", "� RAW JSON from $raddr:")
+            Log.e("UdpListener", "🔴 $trimmed")
+            Log.e("UdpListener", "🔴 Length: ${trimmed.length} chars")
             
             val payload = gson.fromJson(json, IncomingMinerPayload::class.java)
+            
+            // Debug: Log all fields from payload with their actual values and types
+            Log.e("UdpListener", "🔍 PARSED PAYLOAD DEBUG:")
+            Log.e("UdpListener", "  - IP: '${payload.ipLower}' / '${payload.ipUpper}'")
+            Log.e("UdpListener", "  - Name: '${payload.nameLower}' / '${payload.nameUpper}'")
+            Log.e("UdpListener", "  - HashRate: '${payload.hashRateString}'")
+            Log.e("UdpListener", "  - Temp: ${payload.temp} (${payload.temp?.javaClass?.simpleName})")
+            Log.e("UdpListener", "  - Power: ${payload.power} (${payload.power?.javaClass?.simpleName})")
+            Log.e("UdpListener", "  - Share: '${payload.share}'")
+            Log.e("UdpListener", "  - Valid: ${payload.valid} (${payload.valid?.javaClass?.simpleName})")
+            Log.e("UdpListener", "  - Uptime: '${payload.uptime}'")
+            Log.e("UdpListener", "  - PoolDiff: '${payload.poolDiff}'")
+            Log.e("UdpListener", "  - PoolInUse: '${payload.poolInUse}'")
+            
             val miner = payload.toMiner(cachedCustomNames[payload.ipLower ?: payload.ipUpper ?: ""]) 
             val ip = miner.ip.ifBlank { raddr ?: "" }
 
@@ -113,12 +129,19 @@ class UdpListener(private val context: Context? = null) {
             minerMap[ip] = finalMiner
             lastSeenMap[ip] = System.currentTimeMillis()
             
-            Log.i("UdpListener", "✅ Added/updated miner: $ip (${finalMiner.name}) - ${finalMiner.hashrate} KH/s")
+            Log.i("UdpListener", "✅ Added/updated miner: $ip (${finalMiner.name})")
+            Log.i("UdpListener", "   - Hashrate: ${finalMiner.hashrate} KH/s")
+            Log.i("UdpListener", "   - Temperature: ${finalMiner.temp}°C")
+            Log.i("UdpListener", "   - Power: ${finalMiner.power}W")
+            Log.i("UdpListener", "   - Shares: ${finalMiner.sharesFormatted}")
+            Log.i("UdpListener", "   - Valid blocks: ${finalMiner.valid}")
             Log.d("UdpListener", "📊 Current miners: ${minerMap.size}")
             
             publish()
         } catch (e: Exception) {
             Log.e("UdpListener", "Failed to parse/update miner: ${e.message}")
+            Log.e("UdpListener", "JSON was: $json")
+            e.printStackTrace()
         }
     }
 
